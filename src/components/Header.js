@@ -6,12 +6,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { toggleMenu } from "../reduxStore/menuSlice";
 import { useState,useEffect } from 'react';
 import { cacheResults } from "../reduxStore/cacheSlice";
+import { useNavigate, Link } from "react-router-dom";
 
 const Header = () => {
 
   const [searchQuery,setSearchQuery] = useState("");
   const [suggesstions,setSuggesstions] = useState([]);
   const [showSuggesstions,setShowSuggesstions] = useState(false);
+  const navigate = useNavigate()
 
   const searchCache = useSelector(store=>store.cache);
 
@@ -37,7 +39,6 @@ const Header = () => {
    */
   
   useEffect(()=>{
-
     const timer = setTimeout(()=>{
       if(searchCache[searchQuery]){
         setSuggesstions(searchCache[searchQuery]);
@@ -50,11 +51,16 @@ const Header = () => {
     return ()=>{
       clearTimeout(timer);
     }
-
   },[searchQuery])
 
   const handleToggleMenu = () => {
     dispatch(toggleMenu())
+  }
+
+  const handleSearch = (query) => {
+    if(!query) return
+    
+    navigate('/results?search_query='+query);
   }
 
   return (
@@ -71,12 +77,22 @@ const Header = () => {
               onChange={(e)=>setSearchQuery(e.target.value)} 
               onFocus={()=>setShowSuggesstions(true)}
               onBlur={()=>setShowSuggesstions(false)}
+              onKeyDown={(e)=>{
+                if(e.key==='Enter'){
+                  handleSearch(searchQuery)
+                }
+              }}
               className="flex-1 border border-gray-400 px-4 py-[5px] border-collapse rounded-l-full font-semibold focus:outline-none" />
-            <div className="border border-gray-300 px-6 py-2 rounded-r-full bg-gray-100 text-lg"><FiSearch /></div>
+            <div className="border border-gray-300 px-6 py-2 rounded-r-full bg-gray-100 text-lg" onClick={()=>handleSearch(searchQuery)}><FiSearch /></div>
           </div>
           {showSuggesstions && suggesstions.length>0 &&
             <div className="fixed bg-white shadow-lg px-4 py-2 rounded-lg z-50 w-[588px]">
-              {suggesstions.map(suggesstion=><p key={suggesstion} className="mb-1 flex items-center cursor-pointer hover:bg-gray-100"><span className="text-sm mr-2"><FiSearch/></span>{suggesstion}</p>)}
+              {suggesstions.map(suggesstion=>
+                <Link key={suggesstion} to={'/results?search_query='+suggesstion}>
+                  <p  className="mb-1 flex items-center cursor-pointer hover:bg-gray-100">
+                    <span className="text-sm mr-2"><FiSearch/></span>
+                  {suggesstion}</p>
+                </Link>)}
             </div>
           }
         </div>

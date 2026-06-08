@@ -17,7 +17,7 @@ const VideoCard = ({video}) => {
     <div className="rounded-t-md cursor-pointer">
       <div className="relative">
         <img src={medium.url} alt="thumbnail" className='w-full h-56 object-fill rounded-2xl'/>
-        <p className="absolute bottom-3 right-8 font-bold text-white z-50">{formatDuration(duration)}</p>
+        <p className="absolute bottom-3 right-4 font-bold text-white text-sm bg-black px-2 py-1 bg-opacity-60 rounded-md">{formatDuration(duration)}</p>
       </div>
       <div className="mx-4 pb-2">
         <h6 className="text-sm font-bold mt-2">{title}</h6>

@@ -1,6 +1,10 @@
 const formatDuration = (duration) => {
 
-    const match = duration.match(/PT(\d+H)?(\d+M)?(\d+S)?/)
+    if(duration === "P0D") return "Live";
+    if(!duration) return "0:00";
+
+    const match = duration.match(/PT(\d+H)?(\d+M)?(\d+S)?/);
+    if(!match) return "0:00";
     // console.log(match)
     const hours = parseInt(match[1]) || 0;
     const minutes = parseInt(match[2]) || 0;
