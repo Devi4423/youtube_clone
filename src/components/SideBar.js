@@ -2,6 +2,7 @@ import { MdHome } from "react-icons/md";
 import { MdOutlineHome } from "react-icons/md";
 import { SiYoutubeshorts } from "react-icons/si";
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 const SideBar = () => {
 
@@ -12,7 +13,9 @@ const SideBar = () => {
   return (
     <div className='w-[16%] fixed bg-white z-50 top-[47px] py-3 h-full'>
       <div className="border-b-[1px] border-b-gray-200 px-3 pb-4">
-        <div className="py-1 px-2 text-sm flex items-center gap-5 hover:bg-gray-100 hover:font-semibold rounded-xl cursor-pointer"><MdHome className="text-2xl" /> Home</div>
+        <Link to="/">
+          <div className="py-1 px-2 text-sm flex items-center gap-5 hover:bg-gray-100 hover:font-semibold rounded-xl cursor-pointer"><MdHome className="text-2xl" /> Home</div>
+        </Link>
         <div className="py-1 px-2 text-sm flex items-center gap-5 hover:bg-gray-200 hover:font-semibold rounded-xl cursor-pointer"><SiYoutubeshorts className="text-xl"/> Shorts</div>
       </div>
       <div className="py-3 border-b-[1px] border-b-gray-200 px-3 pb-4">

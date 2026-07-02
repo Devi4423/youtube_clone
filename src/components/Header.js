@@ -20,7 +20,7 @@ const Header = () => {
   const dispatch = useDispatch();
 
   const getSearchSuggesstions = async() => {
-    console.log('API CALL', searchQuery)
+    // console.log('API CALL', searchQuery)
     const data = await fetch("https://suggestqueries.google.com/complete/search?client=firefox&ds=yt&q="+searchQuery);
     const json = await data.json();
     // console.log(json[1]);
@@ -51,13 +51,14 @@ const Header = () => {
     return ()=>{
       clearTimeout(timer);
     }
-  },[searchQuery])
+  },[searchQuery, searchCache])
 
   const handleToggleMenu = () => {
     dispatch(toggleMenu())
   }
 
   const handleSearch = (query) => {
+    setSearchQuery(query);
     if(!query) return
     
     navigate('/results?search_query='+query);
@@ -76,7 +77,9 @@ const Header = () => {
               value={searchQuery} 
               onChange={(e)=>setSearchQuery(e.target.value)} 
               onFocus={()=>setShowSuggesstions(true)}
-              onBlur={()=>setShowSuggesstions(false)}
+              onBlur={()=>{
+                setTimeout(()=>setShowSuggesstions(false),200)
+              }}
               onKeyDown={(e)=>{
                 if(e.key==='Enter'){
                   handleSearch(searchQuery)
@@ -89,7 +92,7 @@ const Header = () => {
             <div className="fixed bg-white shadow-lg px-4 py-2 rounded-lg z-50 w-[588px]">
               {suggesstions.map(suggesstion=>
                 <Link key={suggesstion} to={'/results?search_query='+suggesstion}>
-                  <p  className="mb-1 flex items-center cursor-pointer hover:bg-gray-100">
+                  <p  className="mb-1 flex items-center cursor-pointer hover:bg-gray-100" onMouseDown={()=>handleSearch(suggesstion)} value={suggesstion}>
                     <span className="text-sm mr-2"><FiSearch/></span>
                   {suggesstion}</p>
                 </Link>)}

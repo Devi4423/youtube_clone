@@ -1,14 +1,15 @@
 import formatDuration from "../utils/formatDuration";
 import formatViews from "../utils/formatViews";
+import formatPublishedat from '../utils/formatPublishedat';
 
 const VideoCard = ({video}) => {
 
     if(!video) return;
-    // console.log(video)
+    console.log(video)
 
     const {contentDetails} = video;
     const {snippet,statistics} = video;
-    const {thumbnails,title,channelTitle} = snippet;
+    const {thumbnails,title,channelTitle,publishedAt} = snippet;
     const {medium} = thumbnails;
     const {viewCount} = statistics;
     const {duration} = contentDetails;
@@ -22,7 +23,7 @@ const VideoCard = ({video}) => {
       <div className="mx-4 pb-2">
         <h6 className="text-sm font-bold mt-2">{title}</h6>
         <p className="text-sm mt-1">{channelTitle}</p>
-        <p className="text-xs mt-1">{formatViews(viewCount)} Views</p>
+        <p className="text-xs mt-1">{formatViews(viewCount)} Views . {formatPublishedat(publishedAt)}</p>
       </div>
     </div>
   )

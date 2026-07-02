@@ -1,31 +1,29 @@
-import { useEffect,useState } from 'react';
-import { Youtube_Api_key } from '../utils/constants';
 import SearchVideoCard from '../subcomponents/SearchVideoCard';
 import { Link, useSearchParams } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import useSearchVideo from '../customHooks/useSearchVideo';
+import { openMenu } from '../reduxStore/menuSlice';
+import { useEffect } from 'react';
 
 const Search = () => {
 
-    const [searchVideos,setSearchVideos] = useState(null);
-    console.log(searchVideos);
+    const isMenuOpen = useSelector(store=>store.menu.isMenuOpen)
+    const dispatch = useDispatch();
+
+    useEffect(()=>{
+        dispatch(openMenu());
+    },[dispatch])
 
     const [searchParams] = useSearchParams();
     const searchQuery = searchParams.get("search_query");
 
-    const getSearchVideos = async () => {
-        const data = await fetch(`https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=25&q=${searchQuery}&key=${Youtube_Api_key}`);
-        const json = await data.json();
-        // console.log(json);
-        setSearchVideos(json.items);
-    }
-
-    useEffect(()=>{
-        getSearchVideos();
-    },[searchQuery])
+    const searchVideos = useSearchVideo(searchQuery);
 
     if(!searchVideos) return;
+    // console.log(searchVideos);
 
     return(
-        <div className="text-black absolute top-[60px] left-[16%] px-10">
+        <div className={`text-black absolute top-[60px] px-10 ${isMenuOpen?"left-[16%]":"left-0"} `}>
             {searchVideos.map(video => 
                 <Link key={video.id.videoId} to={'/watch?v='+video.id.videoId} >
                     <SearchVideoCard  video={video} channelId={video.snippet?.channelId} videoId={video.id.videoId} />

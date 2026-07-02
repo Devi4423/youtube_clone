@@ -1,19 +1,19 @@
 import useCommentsThreads from "../customHooks/useCommentsThreads";
-import Comment from '../subcomponents/Comment';
+import CommentsList from "../subcomponents/CommentsList";
 
 const CommentThreads = ({videoId}) => {
 
     const comments = useCommentsThreads(videoId);
-    console.log(comments);
 
     if(!comments) return;
+    console.log("Comments",comments.length)
 
   return (
-    <div className="bg-slate-100 p-5 rounded-md">
-      <h6 className='text-lg font-bold mb-2'>Comments:</h6>
-        {comments.map((comment)=>(
-            <Comment key={comment.id} comment={comment}/>
-        ))}
+    <div className="rounded-md">
+      {comments.length === 0 ? <><h6 className="font-bold text-lg ">No Comments</h6></> : <>
+        <h6 className='text-lg font-bold mb-2'>{comments.length} Comments:</h6>
+        <CommentsList commentsList={comments}/>
+      </>}
     </div>
   )
 }
