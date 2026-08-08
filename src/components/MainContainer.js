@@ -5,6 +5,7 @@ import VideoContainer from './VideoContainer';
 import { useSelector, useDispatch} from 'react-redux';
 
 const MainContainer = () => {
+
   const isMenuOpen = useSelector(store=>store.menu.isMenuOpen);
 
   const dispatch = useDispatch();

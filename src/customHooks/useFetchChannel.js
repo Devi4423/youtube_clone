@@ -5,11 +5,17 @@ const useFetchChannel = (channelId) => {
   const [channelInfo, setChannelInfo] = useState(null);
 
   const getChannel = async () => {
-    const data = await fetch(
-      `https://youtube.googleapis.com/youtube/v3/channels?part=snippet%2CcontentDetails%2Cstatistics&id=${channelId}&key=${Youtube_Api_key}`,
-    );
-    const json = await data.json();
-    setChannelInfo(json.items[0]);
+    try{
+        const res = await fetch(`https://youtube.googleapis.com/youtube/v3/channels?part=snippet%2CcontentDetails%2Cstatistics%2CbrandingSettings&id=${channelId}&key=${Youtube_Api_key}`);
+        if(!res.ok){
+          console.log("Youtube API Error",res.status,res.statusText);
+        }
+        const json = await res.json();
+        setChannelInfo(json.items[0]);
+    }
+    catch(error){
+      console.log("Networking or Parsing Error", error);
+    }
   };
 
   useEffect(() => {

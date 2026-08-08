@@ -5,7 +5,7 @@ import formatPublishedat from '../utils/formatPublishedat';
 const VideoCard = ({video}) => {
 
     if(!video) return;
-    console.log(video)
+    // console.log(video)
 
     const {contentDetails} = video;
     const {snippet,statistics} = video;

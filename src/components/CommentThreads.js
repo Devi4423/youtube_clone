@@ -6,7 +6,7 @@ const CommentThreads = ({videoId}) => {
     const comments = useCommentsThreads(videoId);
 
     if(!comments) return;
-    console.log("Comments",comments.length)
+    // console.log("Comments",comments.length)
 
   return (
     <div className="rounded-md">

@@ -9,8 +9,6 @@ const RecommendedVideos = ({videoInfo}) => {
     const tags = videoInfo?.snippet?.tags;
     const query = tags[0];
 
-
-
     const recommendedVideos = useSearchVideo(query)
 
     if(!recommendedVideos) return;
