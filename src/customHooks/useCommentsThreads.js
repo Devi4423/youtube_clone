@@ -6,13 +6,15 @@ const useCommentsThreads = (videoId) => {
     const [comments,setComments] = useState([]);
     const getCommentsThreads = async() => {
         try {
-            const data = await fetch(`https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet%2Creplies&videoId=${videoId}&key=${Youtube_Api_key}`);
-            if(!data.ok){
-                const errorData = await data.json();
-                console.log("Youtube API Error", errorData);
-                return;
+            const response = await fetch(`https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet%2Creplies&videoId=${videoId}&key=${Youtube_Api_key}`);
+            const json = await response.json();
+            if(!response.ok){
+                console.log("Youtube API Error",{
+                    status:response.status,
+                    message:json?.error?.message,
+                    reason:json?.error?.errors?.[0]?.reason
+                });
             }
-            const json = await data.json();
             // console.log(json.items);
             setComments(json.items); 
         }

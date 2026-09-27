@@ -1,6 +1,6 @@
 const convertTimeStampstoSeconds = (timestamp) => {
     const parts = timestamp.split(':').map(Number);
-    console.log(parts);
+    // console.log(parts);
 
     if(parts.length === 2){
         const [minutes,seconds] = parts;

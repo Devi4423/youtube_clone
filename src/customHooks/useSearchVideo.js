@@ -6,10 +6,18 @@ const useSearchVideo = (searchQuery) => {
     const [searchVideos,setSearchVideos] = useState(null);
 
     const getSearchVideos = async () => {
-        const data = await fetch(`https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=50&q=${searchQuery}&key=${Youtube_Api_key}`);
-        const json = await data.json();
-        // console.log(json);
-        setSearchVideos(json.items);
+        try{
+            const response = await fetch(`https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=50&q=${searchQuery}&key=${Youtube_Api_key}`);
+            if(!response.ok){
+                console.log("Youtube API Error",response.status,response.statusText);
+            }
+            const json = await response.json();
+            // console.log(json);
+            setSearchVideos(json.items);
+        }
+        catch(error){
+            console.log("Networking parsing error", error);
+        }
     }
 
     useEffect(()=>{

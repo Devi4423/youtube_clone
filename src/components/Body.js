@@ -5,19 +5,22 @@ import useOnlineStatus from '../customHooks/useOnlineStatus';
 
 const Body = () => {
 
-  const isOnlineStatus = useOnlineStatus();
-  // console.log("onlineStatus",isOnlineStatus)
+  const isOnline = useOnlineStatus();
+  // console.log(isOnline);
 
-  if(isOnlineStatus === false){
+  if(!isOnline){
     return(
-      <div>You are Offline! Please make your network connection!!!</div>
+      <div className='flex flex-col justify-center items-center w-full h-screen '>
+        <p className='text-2xl font-bold mb-2'>No Internet Connection!!!</p>
+        <p className='text-xl font-semibold '>Please Check Your Internet and Try Again.</p>
+      </div>
     )
   }
 
   return (
-    <div>
+    <div className='w-full min-w-0 min-h-screen max-w-[2560px] mx-auto'>
       <Header/>
-      <div className=" py-2 flex w-full">
+      <div className=" py-2 flex w-full min-w-0 mx-auto min-h-screen">
         <SideBar/>
         <Outlet/>
       </div>

@@ -1,6 +1,6 @@
 const ChannelVideo = () => {
     return(
-        <div>Channel Video</div>
+        <div>ChannelVideo</div>
     )
 }
 

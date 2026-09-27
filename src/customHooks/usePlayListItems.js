@@ -7,8 +7,11 @@ const usePlayListItems = (uploadId) => {
 
     const getPlayListItems = async() => {
         try{
-            const res = await fetch(`https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet%2CcontentDetails&maxResults=25&playlistId=${uploadId}&key=${Youtube_Api_key}`);
-            const data = await res.json();
+            const response = await fetch(`https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet%2CcontentDetails&maxResults=50&playlistId=${uploadId}&key=${Youtube_Api_key}`);
+            if(!response.ok){
+                console.log("Youyube API Error", response.status,response.statuusText);
+            }
+            const data = await response.json();
             // console.log(data);
             setPlayListItems(data);
         }

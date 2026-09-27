@@ -5,10 +5,12 @@ const ButtonList = () => {
 
   const isMenuOpen = useSelector(store=>store.menu.isMenuOpen)
   
-  const btnList = ["All","New to You",'Live','Music','Sports','Games',"Tamil Serial Drama"]
+  const btnList = ["All","NewtoYou",'Live','Music','Sports','Games',"TamilSerialDrama"]
   return (
-    <div className={`flex gap-5 px-10 py-3 w-full fixed z-40 bg-white top-[50px] ${isMenuOpen ? 'left-[16%]' : 'left-0'}`}>
-      {btnList.map((btn)=><Button key={btn} name={btn}></Button>)}
+    <div className={`fixed top-[40px] sm:top-[45px] lg:top-[50px] 2xl:top-[65px] z-40 bg-white min-w-0 overflow-hidden xl:right-0 ${isMenuOpen ? "md:left-[180px] xl:left-[240px]" : "left-0"}`}>
+      <div className={`flex gap-5 w-full max-w-[1536px] mx-auto px-5 py-3 md:px-10 2xl:gap-7 overflow-x-auto `}>
+        {btnList.map((btn)=><Button key={btn} name={btn}></Button>)}
+      </div>
     </div>
   )
 }

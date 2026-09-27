@@ -7,7 +7,7 @@ const PlayListSection = ({playListId,title}) => {
 
     if(!playListVideos) return;
 
-    console.log(playListVideos);
+    // console.log(playListVideos);
     const playListVideoItems = playListVideos.items;
 
 

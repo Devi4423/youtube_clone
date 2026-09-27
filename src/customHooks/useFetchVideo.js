@@ -6,11 +6,22 @@ const useFetchVideo = (videoId) => {
     const [videoData,setVideoData] = useState(null);
     
     const fetchVideo = async() => {
-
-        const data = await fetch(`https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id=${videoId}&key=${Youtube_Api_key}`);
-        const json = await data.json();
-        // console.log(json);
-        setVideoData(json.items[0]);
+        try{
+            const response = await fetch(`https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id=${videoId}&key=${Youtube_Api_key}`);
+            const json = await response.json();
+            if(!response.ok){
+                console.log("Youtube API Error",{
+                    status:response.status,
+                    message:json?.error?.message,
+                    reason:json?.error?.errors?.[0]?.reason
+                })
+            }
+            // console.log(json);
+            setVideoData(json?.items?.[0]);
+        }
+        catch(error){
+            console.log("Networking or Parsing Error", error)
+        }
     }
 
     useEffect(()=> {

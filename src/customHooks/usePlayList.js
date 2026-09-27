@@ -6,15 +6,18 @@ const usePlayList = (channelId) => {
 
   const getPlayList = async () => {
     try {
-      const res = await fetch(
+      const response = await fetch(
         `https://youtube.googleapis.com/youtube/v3/playlists?part=snippet%2CcontentDetails&channelId=${channelId}&maxResults=50&key=${Youtube_Api_key}`,
       );
-      const data = await res.json();
-    //   console.log(data);
+      if(!response.ok){
+        console.log("Youtube API Error", response.status,response.statusText);
+      }
+      const data = await response.json();
+      // console.log(data);
       setPlayList(data);
     } 
     catch (error) {
-      console.log(error);
+      console.log("Network PArsing Error",error);
     }
   };
 

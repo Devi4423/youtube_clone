@@ -15,10 +15,12 @@ const MainContainer = () => {
   },[dispatch])
 
   return (
-    <div className={`py-1 absolute top-[100px] ${isMenuOpen ? 'left-[16%]' : 'left-0'} `}>
-      <ButtonList/>
-      <VideoContainer/>
-    </div>
+    <main className={`py-1 absolute top-[100px] min-w-0 bottom-0 overflow-x-hidden right-0 2xl:top-[125px]  ${isMenuOpen ? 'md:left-[180px] xl:left-[240px] ' : 'md:left-0'} `}>
+      <div className={`w-full min-w-0 max-w-[1536px] mx-auto`}>
+        <ButtonList/>
+        <VideoContainer/>
+      </div>
+    </main>
   )
 }
 

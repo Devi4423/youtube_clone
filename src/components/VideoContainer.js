@@ -21,7 +21,7 @@ const VideoContainer = () => {
     if(!videos) return 
 
   return (
-    <div className="grid grid-cols-3 gap-y-5 gap-x-5 px-10">
+    <div className="w-full min-w-0 grid grid-cols-1 gap-y-5 sm:grid-cols-2 sm:gap-x-3 sm:px-7 lg:grid-cols-3 lg:gap-x-2 lg:px-3 xl:grid-cols-4 xl:gap-x-3">
         {videos.map(video=>(
             <Link key={video.id} to={"/watch?v="+video.id}>
                 <VideoCard video={video}/>

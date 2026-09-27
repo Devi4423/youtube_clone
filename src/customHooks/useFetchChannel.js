@@ -11,7 +11,7 @@ const useFetchChannel = (channelId) => {
           console.log("Youtube API Error",res.status,res.statusText);
         }
         const json = await res.json();
-        setChannelInfo(json.items[0]);
+        setChannelInfo(json.items?.[0]);
     }
     catch(error){
       console.log("Networking or Parsing Error", error);

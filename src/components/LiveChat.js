@@ -16,12 +16,12 @@ const LiveChat = () => {
         const interval = setInterval(()=>{
             // console.log("API Polling");
             dispatch(addMessages({ "name": generateRandomName(), "message": makeRandomString(16)}));
-        },2000)
+        },4000)
 
         return ()=>{
             clearInterval(interval);
         }
-    },[])
+    },[dispatch])
 
     const handleSubmit = () => {
         if(textMessage.trim() === "") return;
@@ -33,18 +33,18 @@ const LiveChat = () => {
 
     return(
         <>
-            <div className="border border-gray-400 pt-4 py-4 px-2 w-full h-[480px] rounded-md bg-slate-50 shadow-sm overflow-y-scroll flex flex-col-reverse">
+            <div className=" hidden lg:flex border border-gray-400 pt-4 py-4 px-2 w-full h-[480px] rounded-md bg-slate-50 shadow-sm overflow-y-scroll lg:flex-col-reverse lg:mt-5 2xl:h-[650px]">
                 {messages.map((message,index)=>(
                     <ChatMessage key={index} name={message.name} message={message.message}/>
                 ))}
             </div> 
-            <div>
+            <div className='hidden lg:block'>
                 <form className="w-full border-gray-300 mt-2 rounded-md border-2 p-2 flex gap-2 " onSubmit={(e)=>{
                     e.preventDefault();
                     handleSubmit()
                 }}>
-                    <input className="flex-1 border-[1px] border-gray-300 p-2 focus:outline-none" value={textMessage} onChange={(e)=>setTextMessage(e.target.value)}/>
-                    <button className='text-green-600 font-semibold px-2 py-1' type='submit'>Send</button>
+                    <input className="flex-1 border-[1px] border-gray-300 p-2 focus:outline-none 2xl:text-2xl" value={textMessage} onChange={(e)=>setTextMessage(e.target.value)}/>
+                    <button className='text-green-600 font-semibold px-2 py-1 2xl:text-2xl' type='submit'>Send</button>
                 </form>
             </div>
         </>

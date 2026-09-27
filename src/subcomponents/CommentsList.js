@@ -18,7 +18,7 @@ const CommentsList = ({commentsList}) => {
             <div key={comment.id} >
                 <Comment comment={comment} handleOpenId={()=>handleOpenId(comment.id)}/>
                     {openCommentId === comment.id &&
-                        <div className='pl-4 border-l border-gray-400 ml-10 '>
+                        <div className='pl-2 ml-10 border-l border-gray-400 lg:ml-10 lg:pl-4'>
                             {comment?.replies?.comments.length > 0 && <CommentsList commentsList={comment.replies.comments}/>}
                         </div>
                     }

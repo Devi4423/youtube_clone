@@ -13,6 +13,7 @@ import ChannelLive from "./subcomponents/ChannelLive";
 import ChannelPlayList from "./subcomponents/ChannelPlayList";
 import ErrorComponent from "../src/components/ErrorComponent";
 import PlayListVideos from "./channelPlayListComponents/PlayListVideo";
+import ResponsiveSearchBar from './responsiveMobileComponents/ResponsiveSearchBar';
 
 const appRouter = createBrowserRouter([
   {
@@ -23,6 +24,10 @@ const appRouter = createBrowserRouter([
       {
         path: "/",
         element: <MainContainer />,
+      },
+      {
+        path:"/search",
+        element:<ResponsiveSearchBar/>
       },
       {
         path: "/watch",
@@ -41,7 +46,7 @@ const appRouter = createBrowserRouter([
             element: <ChannelHome />,
           },
           {
-            path: "Channel/:id/videos",
+            path: "/channel/:id/videos",
             element: <ChannelVideo />,
           },
           {
@@ -55,7 +60,7 @@ const appRouter = createBrowserRouter([
         ],
       },
       {
-        path: "/channel/:id/playlist/:id",
+        path: "/channel/playlist/:id",
         element: <PlayListVideos />,
       },
       {
@@ -69,7 +74,7 @@ const appRouter = createBrowserRouter([
 function App() {
   return (
     <Provider store={appStore}>
-      <div>
+      <div className='min-w-0 min-h-screen w-full'>
         <RouterProvider router={appRouter} />
       </div>
     </Provider>
